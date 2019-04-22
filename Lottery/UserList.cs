@@ -8,7 +8,7 @@ namespace Lottery
 {
     class UserList
     {
-        private List<User> userList = new List<User>();
+        public List<User> userList = new List<User>();
 
 
 

@@ -130,6 +130,11 @@ namespace Lottery
             return blackList;
         }
 
+        public List<string> GetParticipantIds()
+        {
+            return participantIds;
+        }
+
         private List<Award> awardList = new List<Award>();
 
         private List<string> participantIds = new List<string>();
