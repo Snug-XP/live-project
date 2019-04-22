@@ -120,7 +120,7 @@ namespace Lottery
             DateTime startTime = dateTimePicker1.Value.Date;
             DateTime endTime = dateTimePicker2.Value.Date;
             //匹配活动
-            //Active = 
+            //Active =  
             
             //处理
             dataGridView3.Rows.Clear();
