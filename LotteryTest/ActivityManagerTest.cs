@@ -69,5 +69,23 @@ namespace LotteryTest
 
             Assert.AreEqual(1, manager.ActivityCount);
         }
+
+        [TestMethod]
+        public void TestQueryActivity()
+        {
+            ActivityManager manager = new ActivityManager();
+            Activity activity = new Activity()
+            {
+                KeyWord = "Foo",
+                BeginTime = Util.GetDateTime("2019-04-01 00:00:00"),
+                EndTime = Util.GetDateTime("2019-04-02 00:00:00")
+            };
+            manager.AddActivity(activity);
+
+            Assert.IsNull(manager.Query("Bar", Util.GetDateTime("2019-04-01 12:00:00")));
+            Assert.IsNull(manager.Query("Foo", Util.GetDateTime("2019-04-03 00:00:00")));
+
+            Assert.AreEqual(activity, manager.Query("Foo", Util.GetDateTime("2019-04-01 12:00:00")));
+        }
     }
 }

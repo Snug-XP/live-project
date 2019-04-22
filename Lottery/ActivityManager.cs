@@ -50,6 +50,22 @@ namespace Lottery
         }
 
         /// <summary>
+        /// 根据关键词和发送时间，判断其参与了哪场活动
+        /// </summary>
+        /// <param name="keyword">参与抽奖的关键词</param>
+        /// <param name="sentTime">消息的发送时间</param>
+        /// <returns>如果找到，则返回相对应的 Activity 对象，否则返回 null</returns>
+        public Activity Query(string keyword, DateTime sentTime)
+        {
+            foreach (Activity activity in activities)
+            {
+                if (activity.IsValidMessage(keyword, sentTime))
+                    return activity;
+            }
+            return null;
+        }
+
+        /// <summary>
         /// 获取活动的总数
         /// </summary>
         public int ActivityCount
