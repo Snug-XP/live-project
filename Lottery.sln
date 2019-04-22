@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2019
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lottery", "Lottery\Lottery.csproj", "{F6AE9F75-C844-42A1-ADC7-B8902ACE37BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LotteryTest", "LotteryTest\LotteryTest.csproj", "{C3A50195-14C5-4869-930F-24E47B9B437C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F6AE9F75-C844-42A1-ADC7-B8902ACE37BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6AE9F75-C844-42A1-ADC7-B8902ACE37BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6AE9F75-C844-42A1-ADC7-B8902ACE37BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3A50195-14C5-4869-930F-24E47B9B437C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3A50195-14C5-4869-930F-24E47B9B437C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3A50195-14C5-4869-930F-24E47B9B437C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3A50195-14C5-4869-930F-24E47B9B437C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

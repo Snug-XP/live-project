@@ -9,7 +9,7 @@ namespace Lottery
     /// <summary>
     /// 活动管理类，对已有活动进行管理
     /// </summary>
-    class ActivityManager
+    public class ActivityManager
     {
         public ActivityManager()
         {
@@ -49,6 +49,14 @@ namespace Lottery
                          where activity.KeyWord == keyWord && beginTime <= activity.BeginTime && activity.EndTime <= endTime
                          select activity;
             return result.FirstOrDefault();
+        }
+
+        /// <summary>
+        /// 获取活动的总数
+        /// </summary>
+        public int ActivityCount
+        {
+            get { return activities.Count; }
         }
 
 
