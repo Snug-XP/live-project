@@ -29,9 +29,13 @@ namespace Lottery
         /// <summary>
         /// 最近五次不同的发言的频次
         /// </summary>
+
         public int[] Key = { -1,-1,-1,-1,-1 };
         public int[] Value = { 0, 0, 0, 0, 0 };
         private int index = 0;
+
+        public int Activity { get; set; }
+
 
         public User(string id, string name, string identity, int numberOfUsualSpeech, int numberOfLotterySpeech, int activity)
         {
@@ -41,7 +45,9 @@ namespace Lottery
             this.NumberOfUsualSpeech = numberOfUsualSpeech;
             this.NumberOfLotterySpeech = numberOfLotterySpeech;
             this.Activity = activity;
+
         }
+
 
         public int GetSumActivity()
         {

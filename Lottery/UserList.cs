@@ -8,34 +8,44 @@ namespace Lottery
 {
     class UserList
     {
-        private List<User> userList;
- 
-        //创建类型为Person的对象集合
-        List<UserList> persons = new List<UserList>();
-        //将Person对象放入集合
-        //persons.Add();
-        
+        private List<User> userList = new List<User>();
 
-        public int CompareTo(UserList p)
+
+
+        public void Add(User user)
         {
-            return this.id - p.id;
+            userList.Add(user);
         }
 
-        public int Compare(Person p1, Person p2)
+        public User GetUser(string userID)
         {
-            return System.Collections.Comparer.Default.Compare(p1.Name, p2.Name);
+            foreach (User p in userList)
+            {
+                if (userID.CompareTo(p.ID) == 0)
+                    return p;
+            }
+            return null;
         }
-        public static bool MidAge(Person p)
-        {
 
-            if (p.Age >= 40)
-                return true;
-            else
-                return false;
-        }
-        public static bool Isexist()
+        public bool IsExist(string userID)
         {
-
+            foreach(User p in userList)
+            {
+                if (userID.CompareTo(p.ID)!=0)
+                    return true;
+            }
+            return false;
         }
+
+        /// <summary>
+        /// 按活跃度降序排序
+        /// </summary>
+        public void sort()
+        {
+            userList.Sort(delegate (User x, User y) { return y.Activity.CompareTo(x.Activity); });
+        }
+
 
     }
+}
+
