@@ -43,6 +43,7 @@ namespace Lottery
                 {
                     //存在用户，判断发言类型并增加
                     User user = userList.GetUser(info.ID);
+                    user.Name = info.Name;
                     int lj =  (info.KeySet.Count == 0) ? (user.NumberOfUsualSpeech++) : (user.NumberOfLotterySpeech++);
                     user.WeedOut(info.MessageHashCode);
                     //获取参与活动列表
@@ -64,7 +65,8 @@ namespace Lottery
             activity1.KeyWord = "我要红包";
             activity1.BeginTime = dateTimePicker3.Value.Date.AddYears(-1);
             activity1.EndTime = dateTimePicker3.Value.Date.AddYears(10);
-            activity1.AddAward(new Award("奖励一", "无", 10));
+            Award awardtemp = new Award("奖励一", "无", 10);
+            activity1.AddAward(awardtemp);
             activityManager.AddActivity(activity1);
 
             label11.Text = "";
@@ -91,8 +93,10 @@ namespace Lottery
             activity.CopyWrite = copyWriter;//文案
             activity.BeginTime = startTime;
             activity.EndTime = endTime;
-            
+
             //黑名单内所有id
+            activity.AddBlockedParticipant("1000008");
+            activity.AddBlockedParticipant("10000");
             int dataLine1 = dataGridView1.RowCount - 1;
             for (int i = 0; i < dataLine1; i++) {
                 string id = dataGridView1.Rows[i].Cells[0].Value.ToString();//id
@@ -119,6 +123,7 @@ namespace Lottery
                     label11.Text = "错误：在此时间段已有相同关键词活动存在";
                     return;
                 }
+                MessageBox.Show("新增成功");
             }
             catch (FormatException err)
             {
@@ -140,7 +145,7 @@ namespace Lottery
         {
             if (dataGridView1.Rows.Count > 0)
             {
-                e.Row.HeaderCell.Value = string.Format("{0}", e.Row.Index + 1);
+                e.Row.HeaderCell.Value = string.Format("{0:d4}", e.Row.Index + 1);
             }
         }
 
@@ -155,21 +160,13 @@ namespace Lottery
                 MessageBox.Show("错误：关键字不得为空");
                 return;
             }
-            //构造消息
-            MessageInfo info = new MessageInfo();
-            info.KeySet = new HashSet<string>();
-            info.KeySet.Add(keyword);
-            info.SentTime = sentTime;
-            //查询列表
-            List<Activity> list = activityManager.Query(info);
-
-            if (list.Count == 0 )
+            Activity activity = activityManager.Query(keyword, sentTime);
+            if(activity == null)
             {
                 MessageBox.Show("错误：未匹配到活动");
             }
             else//处理
             {
-                Activity activity = list[0];
                 //抽奖
                 Draw draw = new Draw(userList, activity);
                 dataGridView3.Rows.Clear();
