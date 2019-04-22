@@ -95,8 +95,24 @@ namespace Lottery
             {
                 return participantIds;
             }
+            set
+            {
+                participantIds = value;
+            }
         }
 
+
+        public List<string> BackIds
+        {
+            get
+            {
+                return backIds;
+            }
+            set
+            {
+                backIds = value;
+            }
+        ｝
         /// <summary>
         /// 获取奖品列表
         /// </summary>
@@ -105,12 +121,14 @@ namespace Lottery
             get
             {
                 return awardList;
+
             }
         }
 
         private List<Award> awardList = new List<Award>();
 
         private List<string> participantIds = new List<string>();
+        private List<string> backIds = new List<string>();
 
         private HashSet<string> blackList = new HashSet<string>();
 
