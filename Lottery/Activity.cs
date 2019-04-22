@@ -30,5 +30,16 @@ namespace Lottery
         /// 活动的文案
         /// </summary>
         public string CopyWrite { get; set; }
+
+        /// <summary>
+        /// 给活动添加奖项
+        /// </summary>
+        /// <param name="award">要添加的奖项</param>
+        public void AddAward(Award award)
+        {
+            awardList.Add(award);
+        }
+        private List<Award> awardList { get; set; }
+
     }
 }
