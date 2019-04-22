@@ -19,7 +19,6 @@ namespace Lottery
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
             string filePath = textBox1.Text.Trim();
             MessageParser p = new MessageParser(filePath);
             while (p.HasNextMessage())
@@ -37,7 +36,6 @@ namespace Lottery
                     //(info.KeySet.Count == 0) ？ (user.numberOfUsualSpeech++) : (user.numberOfLotterySpeech++);
                 }
             }
-            //Console.WriteLine(filePath);
         }
 
         private void button2_Click(object sender, EventArgs e)
