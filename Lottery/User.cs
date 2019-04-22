@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lottery
 {
-    class User
+    public class User
     {
         private string id { get; set; }
         private string name { get; set; }
@@ -31,7 +31,7 @@ namespace Lottery
         /// </summary>
         private int activity { get; set; }
 
-        User(string id, string name, string identity, int numberOfUsualSpeech, int numberOfLotterySpeech,int activity)
+        public User(string id, string name, string identity, int numberOfUsualSpeech, int numberOfLotterySpeech,int activity)
         {
             this.id = id;
             this.name = name;
