@@ -42,7 +42,7 @@ namespace Lottery
         /// </summary>
         public void sort()
         {
-            userList.Sort(delegate (User x, User y) { return y.Activity.CompareTo(x.Activity); });
+            userList.Sort(delegate (User x, User y) { return y.GetActivity().CompareTo(x.GetActivity()); });
         }
 
 
