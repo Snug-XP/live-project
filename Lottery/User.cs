@@ -99,6 +99,7 @@ namespace Lottery
                     if (index >= 5) index = 0;
                 }
             }
+            //第五次遍历
             Key[index] = hashcode;
             Value[index] = 0;
         }

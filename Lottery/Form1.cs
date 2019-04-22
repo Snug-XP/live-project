@@ -93,14 +93,14 @@ namespace Lottery
             }
             catch (FormatException err)
             {
-                Console.WriteLine(err.Message);
+                //Console.WriteLine(err.Message);
                 label11.Text = "人数应为整数，请重新输入";
                 //转换int的异常
             }
             catch (Exception err)
             {
                 label11.Text = "输入有误，请重新输入";
-                Console.WriteLine(err.Message);
+                //Console.WriteLine(err.Message);
             }
 
         }
