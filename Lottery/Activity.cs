@@ -39,7 +39,24 @@ namespace Lottery
         {
             awardList.Add(award);
         }
-        private List<Award> awardList { get; set; }
+
+        public void AddParticipant(string userId)
+        {
+            participantIds.Add(userId);
+        }
+
+        public List<string> Participants
+        {
+            get
+            {
+                return participantIds;
+            }
+        }
+
+
+        private List<Award> awardList = new List<Award>();
+
+        private List<string> participantIds = new List<string>();
 
     }
 }
