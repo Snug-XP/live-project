@@ -121,7 +121,6 @@ namespace Lottery
             get
             {
                 return awardList;
-
             }
         }
 
