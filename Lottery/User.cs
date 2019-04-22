@@ -22,10 +22,25 @@ namespace Lottery
         /// 抽奖发言次数
         /// </summary>
         public int NumberOfLotterySpeech { get; set; }
+
+        private int activity;
+
         /// <summary>
         /// 活跃度
         /// </summary>
-        public int Activity { get; set; }
+        public int GetActivity()
+        {
+            return activity;
+        }
+
+        /// <summary>
+        /// 活跃度
+        /// </summary>
+        public void SetActivity(int value)
+        {
+            activity = value;
+        }
+
         /// <summary>
         /// 最近五次不同的发言的频次
         /// </summary>
@@ -42,14 +57,14 @@ namespace Lottery
             this.Identity = identity;
             this.NumberOfUsualSpeech = numberOfUsualSpeech;
             this.NumberOfLotterySpeech = numberOfLotterySpeech;
-            this.Activity = activity;
+            this.SetActivity(activity);
 
         }
 
 
         public int GetSumActivity()
         {
-            return (2 * NumberOfUsualSpeech + NumberOfLotterySpeech + Activity);
+            return (2 * NumberOfUsualSpeech + NumberOfLotterySpeech + GetActivity());
         }
         /// <summary>
         /// 淘汰算法
@@ -63,15 +78,15 @@ namespace Lottery
                 if (hashcode == Key[index])
                 {
                     Value[index]++;
-                    if (Value[index] / 2 == 10) Activity -= 50;
+                    if (Value[index] / 2 == 10) SetActivity(GetActivity() - 50);
                     else if (Value[index] > 20 && Value[index] <= 100)
                     {
-                        Activity -= 3;
+                        SetActivity(GetActivity() - 3);
                         Identity = "预警者";
                     }
                     else if (Value[index] > 100)
                     {
-                        Activity -= 1008611;
+                        SetActivity(GetActivity() - 1008611);
                         Identity = "危险者";
                     }
                     //活跃度<-1500000后不再减少（防止溢出）

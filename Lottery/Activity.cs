@@ -113,7 +113,6 @@ namespace Lottery
                 backIds = value;
             }
         }
-
         /// <summary>
         /// 获取奖品列表
         /// </summary>
@@ -124,6 +123,11 @@ namespace Lottery
                 return awardList;
 
             }
+        }
+
+        public HashSet<string> GetBlackList()
+        {
+            return blackList;
         }
 
         private List<Award> awardList = new List<Award>();
