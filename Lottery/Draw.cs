@@ -16,7 +16,7 @@ namespace Lottery
         public List<User> h_act_List = new List<User>();//高活跃
         public List<User> m_act_List = new List<User>();//中活跃
         public List<User> l_act_List = new List<User>();//低活跃
-        public List<User> good_List = new List<User>();//中奖名单
+        public List<User>    good_List = new List<User>();//中奖名单
 
         Activity activity;
 
