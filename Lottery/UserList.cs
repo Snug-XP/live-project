@@ -13,10 +13,8 @@ namespace Lottery
         //创建类型为Person的对象集合
         List<UserList> persons = new List<UserList>();
         //将Person对象放入集合
-        persons.Add(p1);
-        persons.Add(p2);
-        persons.Add(p3);
-        //输出第2个人的姓名
+        //persons.Add();
+        
 
         public int CompareTo(UserList p)
         {
@@ -35,6 +33,9 @@ namespace Lottery
             else
                 return false;
         }
+        public static bool Isexist()
+        {
 
+        }
 
     }
