@@ -49,8 +49,6 @@ namespace Lottery
         public int[] Value = { 0, 0, 0, 0, 0 };
         private int index = 0;
 
-        public int Activity { get; set; }
-
 
         public User(string id, string name, string identity, int numberOfUsualSpeech, int numberOfLotterySpeech, int activity)
         {
@@ -72,7 +70,7 @@ namespace Lottery
         /// 淘汰算法
         /// </summary>
         /// <param name="hashcode"></param>
-        public void  weedOut (int hashcode)
+        public void  WeedOut (int hashcode)
         {
             for (int i = 0; i < 5; i++)
             {
@@ -116,6 +114,7 @@ namespace Lottery
                     if (index >= 5) index = 0;
                 }
             }
+            //第五次遍历
             Key[index] = hashcode;
             Value[index] = 0;
         }

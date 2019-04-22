@@ -87,18 +87,6 @@ namespace Lottery
         }
 
         /// <summary>
-        /// 检查消息是否属于该活动的有效发言
-        /// </summary>
-        /// <param name="keyword">抽奖关键词</param>
-        /// <param name="sentTime">消息发送的时间</param>
-        /// <returns>发言有效则返回 true，否则返回 false</returns>
-        public bool IsValidMessage(string keyword, DateTime sentTime)
-        {
-            return keyword == KeyWord &&
-                BeginTime <= sentTime && sentTime <= EndTime;
-        }
-
-        /// <summary>
         /// 获取参与人员的 ID 列表
         /// </summary>
         public List<string> Participants
@@ -107,8 +95,24 @@ namespace Lottery
             {
                 return participantIds;
             }
+            set
+            {
+                participantIds = value;
+            }
         }
 
+
+        public List<string> BackIds
+        {
+            get
+            {
+                return backIds;
+            }
+            set
+            {
+                backIds = value;
+            }
+        }
         /// <summary>
         /// 获取奖品列表
         /// </summary>
@@ -117,12 +121,24 @@ namespace Lottery
             get
             {
                 return awardList;
+
             }
+        }
+
+        public HashSet<string> GetBlackList()
+        {
+            return blackList;
+        }
+
+        public List<string> GetParticipantIds()
+        {
+            return participantIds;
         }
 
         private List<Award> awardList = new List<Award>();
 
         private List<string> participantIds = new List<string>();
+        private List<string> backIds = new List<string>();
 
         private HashSet<string> blackList = new HashSet<string>();
 
