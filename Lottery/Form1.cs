@@ -32,8 +32,8 @@ namespace Lottery
                 else
                 {
                     //存在用户，判断发言类型并增加
-                    User user = GetId(id);
-                    (info.KeySet.Count == 0) ？ (user.numberOfUsualSpeech++) : (user.numberOfLotterySpeech++);
+                    //User user = GetId(id);
+                    //(info.KeySet.Count == 0) ？ (user.numberOfUsualSpeech++) : (user.numberOfLotterySpeech++);
                 }
             }
         }
