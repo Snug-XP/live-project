@@ -63,6 +63,7 @@ namespace Lottery
             Random ro = new Random(10);
             long tick = DateTime.Now.Ticks;
             Random ran = new Random((int)(tick & 0xffffffffL) | (int)(tick >> 32));
+            n = (n < activity.Participants.Count()) ? n : activity.Participants.Count();
             while (n > 0)
             {
                 
@@ -92,9 +93,12 @@ namespace Lottery
 
                             if (flag == 1)
                             {
-                                good_List.Add(h_act_List[goodnum]); //加入中奖队列!!!!
-                                n--;//中奖人数减一
-                                break;
+                                if (!good_List.Contains(h_act_List[goodnum]))
+                                {
+                                    good_List.Add(h_act_List[goodnum]); //加入中奖队列!!!!
+                                    n--;//中奖人数减一
+                                    break;
+                                }
                             }
                             else
                                 break;
@@ -127,9 +131,12 @@ namespace Lottery
 
                             if (flag == 1)
                             {
-                                good_List.Add(m_act_List[goodnum]); //加入中奖队列!!!!
-                                n--;//中奖人数减一
-                                break;
+                                if (!good_List.Contains(h_act_List[goodnum]))
+                                {
+                                    good_List.Add(h_act_List[goodnum]); //加入中奖队列!!!!
+                                    n--;//中奖人数减一
+                                    break;
+                                }
                             }
                             else
                                 break;
@@ -161,9 +168,12 @@ namespace Lottery
 
                             if (flag == 1)
                             {
-                                good_List.Add(l_act_List[goodnum]); //加入中奖队列!!!!
-                                n--;//中奖人数减一
-                                break;
+                                if (!good_List.Contains(h_act_List[goodnum]))
+                                {
+                                    good_List.Add(h_act_List[goodnum]); //加入中奖队列!!!!
+                                    n--;//中奖人数减一
+                                    break;
+                                }
                             }
                             else
                                 break;
@@ -173,17 +183,17 @@ namespace Lottery
             }
            
             return good_List;
-            //Copy to a array
          
         }
 
         public List<Lottery.User> CommonFilterList(int n) //n为所需中将人数
         {
-            ///if(activity.Participants.ToArray().Length<0)
 
             Random ro = new Random(10);
             long tick = DateTime.Now.Ticks;
             Random ran = new Random((int)(tick & 0xffffffffL) | (int)(tick >> 32));
+
+            n = (n < activity.Participants.Count()) ? n : activity.Participants.Count();
             while (n > 0)
             {
                 int i; //第一层筛选
@@ -200,9 +210,12 @@ namespace Lottery
                     {
                         if (goodID.CompareTo(userID) == 0)  //该User在当前活动的参与者中
                         {
-                            good_List.Add(h_act_List[goodnum]); //加入中奖队列
-                            n--;//中奖人数减一
-                            break;
+                            if (!good_List.Contains(h_act_List[goodnum]))
+                            {
+                                good_List.Add(h_act_List[goodnum]); //加入中奖队列!!!!
+                                n--;//中奖人数减一
+                                break;
+                            }
                         }
                     }
                 }
@@ -218,9 +231,12 @@ namespace Lottery
                     {
                         if (goodID.CompareTo(userID) == 0)  //该User在当前活动的参与者中
                         {
-                            good_List.Add(m_act_List[goodnum]); //加入中奖队列
-                            n--;//中奖人数减一
-                            break;
+                            if (!good_List.Contains(h_act_List[goodnum]))
+                            {
+                                good_List.Add(h_act_List[goodnum]); //加入中奖队列!!!!
+                                n--;//中奖人数减一
+                                break;
+                            }
                         }
                     }
                 }
@@ -237,15 +253,17 @@ namespace Lottery
                     {
                         if (goodID.CompareTo(userID) == 0)  //该User在当前活动的参与者中
                         {
-                            good_List.Add(l_act_List[goodnum]); //加入中奖队列
-                            n--;//中奖人数减一
-                            break;
+                            if (!good_List.Contains(h_act_List[goodnum]))
+                            {
+                                good_List.Add(h_act_List[goodnum]); //加入中奖队列!!!!
+                                n--;//中奖人数减一
+                                break;
+                            }
                         }
                     }
                 }
             }
             return good_List;
-            //Copy to a array
         }
 
 
