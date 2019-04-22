@@ -13,6 +13,14 @@ namespace Lottery
         private int count;
         private List<string> id = new List<string>();
 
+        public Award() { }
+        public Award(string aName,string aMessage, int num)
+        {
+            AwardName = aName;
+            AwardMessage = aMessage;
+            Count = num;
+        }
+
         public string AwardName { get => awardName; set => awardName = value; }
         public string AwardMessage { get => awardMessage; set => awardMessage = value; }
         public int Count { get => count; set => count = value; }
