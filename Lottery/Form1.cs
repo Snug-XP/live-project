@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,15 +61,6 @@ namespace Lottery
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //默认
-            Activity activity1 = new Activity();
-            activity1.KeyWord = "我要红包";
-            activity1.BeginTime = dateTimePicker3.Value.Date.AddYears(-1);
-            activity1.EndTime = dateTimePicker3.Value.Date.AddYears(10);
-            Award awardtemp = new Award("奖励一", "无", 10);
-            activity1.AddAward(awardtemp);
-            activityManager.AddActivity(activity1);
-
             label11.Text = "";
             
             string keyword = textBox2.Text.Trim();//关键词
@@ -145,7 +137,7 @@ namespace Lottery
         {
             if (dataGridView1.Rows.Count > 0)
             {
-                e.Row.HeaderCell.Value = string.Format("{0:d4}", e.Row.Index + 1);
+                e.Row.HeaderCell.Value = string.Format("{0:d3}", e.Row.Index + 1);
             }
         }
 
@@ -154,6 +146,9 @@ namespace Lottery
             string keyword = textBox5.Text.Trim();//关键词
             int filter = comboBox1.SelectedIndex;//过滤程度
             DateTime sentTime = dateTimePicker2.Value.Date;
+            //写文件
+            FileStream fs = new FileStream("reward.txt", FileMode.Create);
+            StreamWriter sw = new StreamWriter(fs);
             
             if (keyword.Equals(""))
             {
@@ -185,9 +180,16 @@ namespace Lottery
                         dataGridView3.Rows[index].Cells[2].Value = user.Name;
                         dataGridView3.Rows[index].Cells[3].Value = award.AwardName;
                         dataGridView3.Rows[index].Cells[4].Value = award.AwardMessage;
+                        //开始写入
+                        sw.Write(award.AwardName+ "，" + user.Name);
                     }
                 }
                 MessageBox.Show("生成结束");
+                //清空缓冲区
+                sw.Flush();
+                //关闭流
+                sw.Close();
+                fs.Close();
             }
         }
 
@@ -201,5 +203,7 @@ namespace Lottery
                 textBox1.Text = filename;
             }
         }
+
+        
     }
 }
