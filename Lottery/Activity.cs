@@ -50,6 +50,29 @@ namespace Lottery
         }
 
         /// <summary>
+        /// 将特定的 ID 加入到“黑名单”中，不让其参与抽奖
+        /// </summary>
+        /// <param name="userId">要加入“黑名单”的参与者 ID</param>
+        public void AddBlockedParticipant(string userId)
+        {
+            // 加入列表前，进行检查，避免重复添加
+            if (!blackList.Contains(userId))
+            {
+                blackList.Add(userId);
+            }
+        }
+
+        /// <summary>
+        /// 判断用户 ID 是否在“黑名单”中
+        /// </summary>
+        /// <param name="userId">要查询的用户 ID</param>
+        /// <returns>如果在“黑名单”中，返回 true，否则返回 false</returns>
+        public bool IsInBlackList(string userId)
+        {
+            return blackList.Contains(userId);
+        }
+
+        /// <summary>
         /// 检查一条消息记录是否属于该活动的有效发言
         /// 判断条件有两个
         /// 1. 消息内包含参与活动的关键字
@@ -88,6 +111,8 @@ namespace Lottery
         private List<Award> awardList = new List<Award>();
 
         private List<string> participantIds = new List<string>();
+
+        private HashSet<string> blackList = new HashSet<string>();
 
     }
 }
