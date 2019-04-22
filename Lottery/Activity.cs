@@ -40,11 +40,18 @@ namespace Lottery
             awardList.Add(award);
         }
 
+        /// <summary>
+        /// 添加参与者的 ID 到参与人员列表中
+        /// </summary>
+        /// <param name="userId">参与人员的 ID</param>
         public void AddParticipant(string userId)
         {
             participantIds.Add(userId);
         }
 
+        /// <summary>
+        /// 获取参与人员的 ID 列表
+        /// </summary>
         public List<string> Participants
         {
             get
