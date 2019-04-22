@@ -19,6 +19,12 @@ namespace Lottery
         /// 消息发送的日期时间
         /// </summary>
         public DateTime SentTime { get; set; }
+
+        /// <summary>
+        /// 消息发送者的昵称
+        /// </summary>
+        public string Name { get; set; }
+
         /// <summary>
         /// 包含参与抽奖信息的列表
         /// </summary>
