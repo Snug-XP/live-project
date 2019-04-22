@@ -87,6 +87,18 @@ namespace Lottery
         }
 
         /// <summary>
+        /// 检查消息是否属于该活动的有效发言
+        /// </summary>
+        /// <param name="keyword">抽奖关键词</param>
+        /// <param name="sentTime">消息发送的时间</param>
+        /// <returns>发言有效则返回 true，否则返回 false</returns>
+        public bool IsValidMessage(string keyword, DateTime sentTime)
+        {
+            return keyword == KeyWord &&
+                BeginTime <= sentTime && sentTime <= EndTime;
+        }
+
+        /// <summary>
         /// 获取参与人员的 ID 列表
         /// </summary>
         public List<string> Participants
