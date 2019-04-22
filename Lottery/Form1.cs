@@ -20,7 +20,22 @@ namespace Lottery
         private void button1_Click(object sender, EventArgs e)
         {
             string filePath = textBox1.Text.Trim();
-            Console.WriteLine(filePath);
+            MessageParser p = new MessageParser(filePath);
+            while (p.HasNextMessage())
+            {
+                MessageInfo info = p.NextMessage();
+                if (true)
+                {
+                    //用户首次发言=进群，不计次数
+                    User user = new User(info.ID, info.Name, "学生", 0, 0, 0);
+                }
+                else
+                {
+                    //存在用户，判断发言类型并增加
+                    User user = GetId(id);
+                    (info.KeySet.Count == 0) ？ (user.numberOfUsualSpeech++) : (user.numberOfLotterySpeech++);
+                }
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -31,14 +46,21 @@ namespace Lottery
             string copyWriter = richTextBox1.Text.Trim();//文案
             DateTime startTime = dateTimePicker3.Value.Date;
             DateTime endTime = dateTimePicker4.Value.Date;
+           
             // 测试
-            Console.WriteLine(keyword + " " + filter + " " + copyWriter + " " + startTime.ToString() + " " + endTime.ToString() );
+            //Console.WriteLine(keyword + " " + filter + " " + copyWriter + " " + startTime.ToString() + " " + endTime.ToString() );
+            Activity activity = new Activity();
+            activity.KeyWord = keyword;//关键词
+            activity.CopyWrite = copyWriter;//文案
+            activity.BeginTime = startTime;
+            activity.EndTime = endTime;
+
             //黑名单内所有id
             List<string> vs = new List<string>();
             int dataLine1 = dataGridView1.RowCount - 1;
             for (int i = 0; i < dataLine1; i++) {
                 string id = dataGridView1.Rows[i].Cells[0].Value.ToString();//id
-                Console.WriteLine(id);
+                //Console.WriteLine(id);
                 vs.Add(id);
             }
             try
@@ -50,7 +72,7 @@ namespace Lottery
                     string awardName = dataGridView2.Rows[i].Cells[0].Value.ToString();//奖励名
                     string awardMessage = dataGridView2.Rows[i].Cells[1].Value.ToString();//奖品
                     int count = Convert.ToInt32(dataGridView2.Rows[i].Cells[2].Value);//人数
-                    Console.WriteLine(awardName + " " + awardMessage + "" + count);
+                    Award award = new Award(awardName, awardName, count);
                     //此处封装成数据结构加入到list中
                 }
             }
@@ -80,6 +102,9 @@ namespace Lottery
             string keyword = textBox5.Text.Trim();//关键词
             DateTime startTime = dateTimePicker1.Value.Date;
             DateTime endTime = dateTimePicker2.Value.Date;
+            //匹配活动
+            //Active = 
+            
             //处理
             dataGridView3.Rows.Clear();
             int count = 5;//需要改
