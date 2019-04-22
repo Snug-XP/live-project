@@ -121,13 +121,17 @@ namespace Lottery
             get
             {
                 return awardList;
-
             }
         }
 
         public HashSet<string> GetBlackList()
         {
             return blackList;
+        }
+
+        public List<string> GetParticipantIds()
+        {
+            return participantIds;
         }
 
         private List<Award> awardList = new List<Award>();

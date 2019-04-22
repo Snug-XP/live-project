@@ -36,7 +36,7 @@ namespace Lottery
         {
             foreach(User p in userList)
             {
-                if (userID.CompareTo(p.ID)!=0)
+                if (userID.CompareTo(p.ID)==0)
                     return true;
             }
             return false;

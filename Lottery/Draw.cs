@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-/*
+
 namespace Lottery
 {
     class Draw
@@ -28,11 +28,13 @@ namespace Lottery
         public Draw(UserList userList,Activity activity)
         {
             userList.Sort();//排序
-            totalnum = userList.GetTotal();
+            totalnum = userList.GetTotal();// < activity.Participants.Count) ? userList.GetTotal() : activity.Participants.Count;
             a = totalnum / 5;
             c = totalnum / 2;
             this.userList = userList.userList;
             this.activity = activity;
+            
+            GetpList();
         }
 
         public void Settotalnum(int num)
@@ -55,7 +57,7 @@ namespace Lottery
             }
         }
        
-        public List<User> DeepFilterList<User>(int n) //n为所需中奖人数
+        public List<Lottery.User> DeepFilterList(int n) //n为所需中奖人数
         {
 
             Random ro = new Random(10);
@@ -63,7 +65,7 @@ namespace Lottery
             Random ran = new Random((int)(tick & 0xffffffffL) | (int)(tick >> 32));
             while (n > 0)
             {
-                n--;//进入循环中奖人数减一
+                
                 int i; //第一层筛选
                 i = ro.Next(0, 11);
                 //从高活跃抽取
@@ -73,17 +75,33 @@ namespace Lottery
                     int iResult;
                     iResult = ro.Next();
                     int goodnum = iResult % a; //获取中奖号码
-                    foreach (string userID in activity.GetBlackList())
+                    string goodID = h_act_List[goodnum].ID;
+                    foreach (string userID in activity.GetParticipantIds())
                     {
-                        if (userID.CompareTo(goodnum.ToString())==0) //这个人在黑名单
+                        if (goodID.CompareTo(userID) == 0)  //该User在当前活动的参与者中
                         {
-                            flag = 0;
-                            n++;//中奖人员数返回
-                            break;
+                            foreach (string userId in activity.GetBlackList())
+                            {
+                                if (userId.CompareTo(goodID) == 0) //这个人在黑名单
+                                {
+                                    flag = 0;
+                                   
+                                    break;
+                                }
+                            }
+
+                            if (flag == 1)
+                            {
+                                good_List.Add(h_act_List[goodnum]); //加入中奖队列!!!!
+                                n--;//中奖人数减一
+                                break;
+                            }
+                            else
+                                break;
                         }
+                      
                     }
-                    if(flag==1)
-                    good_List.Add(h_act_List[goodnum]); //加入中奖队列
+                    
                 }
                 else if (i > 5 && i < 8)
                 {
@@ -92,19 +110,33 @@ namespace Lottery
                     int iResult;
                     iResult = ro.Next();
                     int goodnum = iResult % (c - a); //获取中奖号码
-                    foreach (string userID in activity.GetBlackList())
+
+                    string goodID = m_act_List[goodnum].ID;
+                    foreach (string userID in activity.GetParticipantIds())
                     {
-                        if (userID.CompareTo(goodnum.ToString()) == 0) //这个人在黑名单
+                        if (goodID.CompareTo(userID) == 0)  //该User在当前活动的参与者中
                         {
-                            flag = 0;
-                            n++;//中奖人员数返回
-                            break;
+                            foreach (string userId in activity.GetBlackList())
+                            {
+                                if (userId.CompareTo(goodID) == 0) //这个人在黑名单
+                                {
+                                    flag = 0;
+                                    break;
+                                }
+                            }
+
+                            if (flag == 1)
+                            {
+                                good_List.Add(m_act_List[goodnum]); //加入中奖队列!!!!
+                                n--;//中奖人数减一
+                                break;
+                            }
+                            else
+                                break;
                         }
                     }
-                    if (flag == 1)
-                        good_List.Add(m_act_List[goodnum]); //加入中奖队列
                 }
-                if (i > 7)
+                else if (i > 7)
                 {
                     //从低活跃抽取
                     
@@ -112,32 +144,48 @@ namespace Lottery
                     int iResult;
                     iResult = ro.Next();
                     int goodnum = iResult % (totalnum - c); //获取中奖号码
-                    foreach (string userID in activity.GetBlackList())
+
+                    string goodID = l_act_List[goodnum].ID;
+                    foreach (string userID in activity.GetParticipantIds())
                     {
-                        if (userID.CompareTo(goodnum.ToString()) == 0) //这个人在黑名单
+                        if (goodID.CompareTo(userID) == 0)  //该User在当前活动的参与者中
                         {
-                            flag = 0;
-                            n++;//中奖人员数返回
-                            break;
+                            foreach (string userId in activity.GetBlackList())
+                            {
+                                if (userId.CompareTo(goodID) == 0) //这个人在黑名单
+                                {
+                                    flag = 0;
+                                    break;
+                                }
+                            }
+
+                            if (flag == 1)
+                            {
+                                good_List.Add(l_act_List[goodnum]); //加入中奖队列!!!!
+                                n--;//中奖人数减一
+                                break;
+                            }
+                            else
+                                break;
                         }
                     }
-                    if (flag == 1)
-                        good_List.Add(l_act_List[goodnum]); //加入中奖队列
                 }
             }
+           
             return good_List;
             //Copy to a array
          
         }
-        public List<User> noFilterList<User>(int n) //n为所需中将人数
+
+        public List<Lottery.User> CommonFilterList(int n) //n为所需中将人数
         {
+            ///if(activity.Participants.ToArray().Length<0)
 
             Random ro = new Random(10);
             long tick = DateTime.Now.Ticks;
             Random ran = new Random((int)(tick & 0xffffffffL) | (int)(tick >> 32));
             while (n > 0)
             {
-                n--;//进入循环中奖人数减一
                 int i; //第一层筛选
                 i = ro.Next(0, 11);
                 //从高活跃抽取
@@ -147,17 +195,16 @@ namespace Lottery
                     int iResult;
                     iResult = ro.Next();
                     int goodnum = iResult % a; //获取中奖号码
-                   /* for (遍历黑名单)
+                    string goodID = h_act_List[goodnum].ID;
+                    foreach (string userID in activity.GetParticipantIds())
                     {
-                        if (id == id)
+                        if (goodID.CompareTo(userID) == 0)  //该User在当前活动的参与者中
                         {
-                            flag = 0;
-                            n++;//中奖人员数返回
+                            good_List.Add(h_act_List[goodnum]); //加入中奖队列
+                            n--;//中奖人数减一
                             break;
                         }
                     }
-                    if (flag == 1)
-                        good_List.Add(h_act_List[goodnum]); //加入中奖队列
                 }
                 else if (i > 5 && i < 8)
                 {
@@ -166,17 +213,16 @@ namespace Lottery
                     int iResult;
                     iResult = ro.Next();
                     int goodnum = iResult % (c - a); //获取中奖号码
-                    /*for (遍历黑名单)
+                    string goodID = m_act_List[goodnum].ID;
+                    foreach (string userID in activity.GetParticipantIds())
                     {
-                        if (id == id)
+                        if (goodID.CompareTo(userID) == 0)  //该User在当前活动的参与者中
                         {
-                            flag = 0;
-                            n++;//中奖人员数返回
+                            good_List.Add(m_act_List[goodnum]); //加入中奖队列
+                            n--;//中奖人数减一
                             break;
                         }
                     }
-                    if (flag == 1)
-                        good_List.Add(m_act_List[goodnum]); //加入中奖队列
                 }
                 if (i > 7)
                 {
@@ -185,23 +231,24 @@ namespace Lottery
                     //int flag = 1;//判断这个人是否可以中奖,1为可中将，0不行
                     int iResult;
                     iResult = ro.Next();
-                    int goodnum = iResult % (totalnum - c); //获取中奖号码
-                    /*for (遍历黑名单)
+                    int goodnum = iResult % (totalnum - c-1); //获取中奖号码
+                    string goodID = l_act_List[goodnum].ID;
+                    foreach (string userID in activity.GetParticipantIds())
                     {
-                        if (id == id)
+                        if (goodID.CompareTo(userID) == 0)  //该User在当前活动的参与者中
                         {
-                            flag = 0;
-                            n++;//中奖人员数返回
+                            good_List.Add(l_act_List[goodnum]); //加入中奖队列
+                            n--;//中奖人数减一
                             break;
                         }
                     }
-                    if (flag == 1)
-                        good_List.Add(l_act_List[goodnum]); //加入中奖队列
                 }
             }
             return good_List;
             //Copy to a array
-
         }
+
+
+
     }
-}*/
+}
