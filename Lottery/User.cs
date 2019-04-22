@@ -8,20 +8,20 @@ namespace Lottery
 {
     public class User
     {
-        private string id { get; set; }
-        private string name { get; set; }
+        public string ID { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// 身份
         /// </summary>
-        private string identity { get; set; }
+        public string Identity { get; set; }
         /// <summary>
         /// 平时发言次数
         /// </summary>
-        private int numberOfUsualSpeech { get; set; }
+        public int NumberOfUsualSpeech { get; set; }
         /// <summary>
         /// 抽奖发言次数
         /// </summary>
-        private int numberOfLotterySpeech { get; set; }
+        public int NumberOfLotterySpeech { get; set; }
         /// <summary>
         /// 最近五次不同的发言的频次
         /// </summary>
@@ -29,16 +29,16 @@ namespace Lottery
         /// <summary>
         /// 活跃度
         /// </summary>
-        private int activity { get; set; }
+        public int Activity { get; set; }
 
         public User(string id, string name, string identity, int numberOfUsualSpeech, int numberOfLotterySpeech,int activity)
         {
-            this.id = id;
-            this.name = name;
-            this.identity = identity;
-            this.numberOfUsualSpeech = numberOfUsualSpeech;
-            this.numberOfLotterySpeech = numberOfLotterySpeech;
-            this.activity = activity;
+            this.ID = id;
+            this.Name = name;
+            this.Identity = identity;
+            this.NumberOfUsualSpeech = numberOfUsualSpeech;
+            this.NumberOfLotterySpeech = numberOfLotterySpeech;
+            this.Activity = activity;
          }
 
     }
