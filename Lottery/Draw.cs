@@ -131,9 +131,9 @@ namespace Lottery
 
                             if (flag == 1)
                             {
-                                if (!good_List.Contains(h_act_List[goodnum]))
+                                if (!good_List.Contains(m_act_List[goodnum]))
                                 {
-                                    good_List.Add(h_act_List[goodnum]); //加入中奖队列!!!!
+                                    good_List.Add(m_act_List[goodnum]); //加入中奖队列!!!!
                                     n--;//中奖人数减一
                                     break;
                                 }
@@ -168,9 +168,9 @@ namespace Lottery
 
                             if (flag == 1)
                             {
-                                if (!good_List.Contains(h_act_List[goodnum]))
+                                if (!good_List.Contains(l_act_List[goodnum]))
                                 {
-                                    good_List.Add(h_act_List[goodnum]); //加入中奖队列!!!!
+                                    good_List.Add(l_act_List[goodnum]); //加入中奖队列!!!!
                                     n--;//中奖人数减一
                                     break;
                                 }
@@ -231,9 +231,9 @@ namespace Lottery
                     {
                         if (goodID.CompareTo(userID) == 0)  //该User在当前活动的参与者中
                         {
-                            if (!good_List.Contains(h_act_List[goodnum]))
+                            if (!good_List.Contains(m_act_List[goodnum]))
                             {
-                                good_List.Add(h_act_List[goodnum]); //加入中奖队列!!!!
+                                good_List.Add(m_act_List[goodnum]); //加入中奖队列!!!!
                                 n--;//中奖人数减一
                                 break;
                             }
@@ -253,9 +253,9 @@ namespace Lottery
                     {
                         if (goodID.CompareTo(userID) == 0)  //该User在当前活动的参与者中
                         {
-                            if (!good_List.Contains(h_act_List[goodnum]))
+                            if (!good_List.Contains(l_act_List[goodnum]))
                             {
-                                good_List.Add(h_act_List[goodnum]); //加入中奖队列!!!!
+                                good_List.Add(l_act_List[goodnum]); //加入中奖队列!!!!
                                 n--;//中奖人数减一
                                 break;
                             }

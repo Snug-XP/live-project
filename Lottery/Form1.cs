@@ -89,6 +89,10 @@ namespace Lottery
             //黑名单内所有id
             activity.AddBlockedParticipant("1000008");
             activity.AddBlockedParticipant("10000");
+            activity.AddBlockedParticipant("80000008");
+            activity.AddBlockedParticipant("215757537");
+            activity.AddBlockedParticipant("825561994");
+            
             int dataLine1 = dataGridView1.RowCount - 1;
             for (int i = 0; i < dataLine1; i++) {
                 string id = dataGridView1.Rows[i].Cells[0].Value.ToString();//id
@@ -105,7 +109,7 @@ namespace Lottery
                     string awardName = dataGridView2.Rows[i].Cells[0].Value.ToString();//奖励名
                     string awardMessage = dataGridView2.Rows[i].Cells[1].Value.ToString();//奖品
                     int count = Convert.ToInt32(dataGridView2.Rows[i].Cells[2].Value);//人数
-                    Award award = new Award(awardName, awardName, count);
+                    Award award = new Award(awardName, awardMessage, count);
                     //奖励名单置入
                     activity.AddAward(award);
                 }
@@ -165,25 +169,32 @@ namespace Lottery
                 //抽奖
                 Draw draw = new Draw(userList, activity);
                 dataGridView3.Rows.Clear();
+                int sum = 0;
                 foreach (Award award in activity.Awards)
                 {
-                    List<Lottery.User> listUser;
-                    if (filter < 2)
-                        listUser = draw.CommonFilterList(award.Count);
-                    else
-                        listUser = draw.DeepFilterList(award.Count);
-                    foreach(Lottery.User user in listUser)
+                    sum += award.Count;
+                }
+                List<Lottery.User> listUser;
+                if (filter < 2)
+                    listUser = draw.CommonFilterList(sum);
+                else
+                    listUser = draw.DeepFilterList(sum);
+
+                foreach (Award award in activity.Awards)
+                {
+                    for (int j = 0; j < award.Count; j++)
                     {
                         int index = dataGridView3.Rows.Add();
                         dataGridView3.Rows[index].Cells[0].Value = keyword;
-                        dataGridView3.Rows[index].Cells[1].Value = user.ID;
-                        dataGridView3.Rows[index].Cells[2].Value = user.Name;
+                        dataGridView3.Rows[index].Cells[1].Value = listUser[index].ID;
+                        dataGridView3.Rows[index].Cells[2].Value = listUser[index].Name;
                         dataGridView3.Rows[index].Cells[3].Value = award.AwardName;
                         dataGridView3.Rows[index].Cells[4].Value = award.AwardMessage;
                         //开始写入
-                        sw.Write(award.AwardName+ "，" + user.Name);
+                        sw.Write(award.AwardName + "，" + listUser[index].Name);
                     }
                 }
+
                 MessageBox.Show("生成结束");
                 //清空缓冲区
                 sw.Flush();
