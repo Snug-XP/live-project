@@ -16,7 +16,7 @@ namespace Lottery
     {
         // 匹配消息头部的 Regex
         private static readonly Regex HeaderRegex = new Regex(
-            @"^(?<dateTime>\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}).*(\((?<id>\d*)\)|<(?<id>[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+)>)$",
+            @"^(?<dateTime>\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2})\s(?<name>.*)(\((?<id>\d*)\)|<(?<id>[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+)>)$",
             RegexOptions.Compiled, TimeSpan.FromMilliseconds(200));
         // 日期格式
         private const string DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
@@ -58,9 +58,13 @@ namespace Lottery
             MessageInfo result = new MessageInfo();
             if (IsHeader(firstLine))
             {
-                ParseHeader(firstLine, out DateTime sentTime, out string id);
+                DateTime sentTime;
+                string id;
+                string name;
+                ParseHeader(firstLine, out sentTime, out id, out name);
                 result.ID = id;
                 result.SentTime = sentTime;
+                result.Name = name;
             }
             ReadNext();
             result.KeySet = new HashSet<string>();
@@ -85,19 +89,21 @@ namespace Lottery
             return HeaderRegex.Match(str).Success;
         }
 
-        private void ParseHeader(string str, out DateTime sentTime, out string id)
+        private void ParseHeader(string str, out DateTime sentTime, out string id, out string name)
         {
             Match m = HeaderRegex.Match(str);
             if (m.Success)
             {
                 sentTime = DateTime.ParseExact(m.Result("${dateTime}"), DateTimeFormat, CultureInfo.InvariantCulture);
                 id = m.Result("${id}");
+                name = m.Result("${name}");
             }
             else
             {
                 // 注意，代码不应该运行到这里
                 sentTime = DateTime.Now;
                 id = string.Empty;
+                name = string.Empty;
             }
         }
 
