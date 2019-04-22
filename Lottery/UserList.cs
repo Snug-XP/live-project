@@ -17,6 +17,16 @@ namespace Lottery
             userList.Add(user);
         }
 
+        public User GetUser(string userID)
+        {
+            foreach (User p in userList)
+            {
+                if (userID.CompareTo(p.ID) == 0)
+                    return p;
+            }
+            return null;
+        }
+
         public bool IsExist(string userID)
         {
             foreach(User p in userList)
@@ -27,6 +37,13 @@ namespace Lottery
             return false;
         }
 
+        /// <summary>
+        /// 按活跃度降序排序
+        /// </summary>
+        public void sort()
+        {
+            userList.Sort(delegate (User x, User y) { return y.Activity.CompareTo(x.Activity); });
+        }
 
 
     }
