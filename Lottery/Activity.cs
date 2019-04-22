@@ -112,7 +112,7 @@ namespace Lottery
             {
                 backIds = value;
             }
-        ｝
+        }
         /// <summary>
         /// 获取奖品列表
         /// </summary>
