@@ -28,7 +28,7 @@ namespace Lottery
         public Draw(UserList userList,Activity activity)
         {
             userList.Sort();//排序
-            totalnum = userList.GetTotal();// < activity.Participants.Count) ? userList.GetTotal() : activity.Participants.Count;
+            totalnum = userList.GetTotal();
             a = totalnum / 5;
             c = totalnum / 2;
             this.userList = userList.userList;

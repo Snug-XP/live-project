@@ -29,6 +29,7 @@ namespace Lottery
         /// 包含参与抽奖信息的列表
         /// </summary>
         public ISet<string> KeySet { get; set; }
+  
         /// <summary>
         /// 消息内容的 HashCode
         /// </summary>
