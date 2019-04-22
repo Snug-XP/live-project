@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Lottery
 {
-    class Award
+    public class Award
     {
         private string awardName;
         private string awardMessage;
         private int count;
         private List<string> id = new List<string>();
+        private int index = 0;
 
         public Award() { }
         public Award(string aName,string aMessage, int num)
@@ -33,10 +34,9 @@ namespace Lottery
         public string PushUser(string awardID)
         {
             string temp = null;
-            if (id.Count > 0)
+            if (id.Count > index)
             {
-                temp = id[0];
-                id.RemoveAt(0);
+                temp = id[index++];
             }
             return temp;
         }
