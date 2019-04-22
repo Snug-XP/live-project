@@ -19,7 +19,13 @@ namespace Lottery
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             string filePath = textBox1.Text.Trim();
+            MessageParser p = new MessageParser(filePath);
+            while (p.HasNextMessage())
+            {
+                MessageInfo info = p.NextMessage();
+            }
             Console.WriteLine(filePath);
         }
 
