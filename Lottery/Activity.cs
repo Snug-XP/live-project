@@ -125,6 +125,11 @@ namespace Lottery
             }
         }
 
+        public HashSet<string> GetBlackList()
+        {
+            return blackList;
+        }
+
         private List<Award> awardList = new List<Award>();
 
         private List<string> participantIds = new List<string>();
