@@ -34,21 +34,35 @@ namespace Lottery
         }
 
         /// <summary>
-        /// 根据用户提供的条件查找活动
+        /// 根据爬取的每一条信息，判断其参与了哪些活动
         /// </summary>
-        /// <param name="keyWord">活动的关键字</param>
-        /// <param name="beginTime">活动的开始时间</param>
-        /// <param name="endTime">活动的结束时间</param>
-        /// <returns>
-        /// 如果用户给定的关键字在活动列表里存在，且活动的开始时间与结束时间落在给定范围内（包含两个边界）
-        /// 则返回该活动，否则返回 null
-        /// </returns>
-        public Activity Query(string keyWord, DateTime beginTime, DateTime endTime)
+        /// <param name="message">从聊天记录里得到的 MessageInfo</param>
+        /// <returns>一个列表，包含其参与的所有活动，如果其没有参与任何活动，返回一个空列表</returns>
+        public List<Activity> Query(MessageInfo message)
         {
-            var result = from activity in activities
-                         where activity.KeyWord == keyWord && beginTime <= activity.BeginTime && activity.EndTime <= endTime
-                         select activity;
-            return result.FirstOrDefault();
+            List<Activity> participated = new List<Activity>();
+            foreach (Activity activity in activities)
+            {
+                if (activity.IsValidMessage(message))
+                    participated.Add(activity);
+            }
+            return participated;
+        }
+
+        /// <summary>
+        /// 根据关键词和发送时间，判断其参与了哪场活动
+        /// </summary>
+        /// <param name="keyword">参与抽奖的关键词</param>
+        /// <param name="sentTime">消息的发送时间</param>
+        /// <returns>如果找到，则返回相对应的 Activity 对象，否则返回 null</returns>
+        public Activity Query(string keyword, DateTime sentTime)
+        {
+            foreach (Activity activity in activities)
+            {
+                if (activity.IsValidMessage(keyword, sentTime))
+                    return activity;
+            }
+            return null;
         }
 
         /// <summary>
@@ -62,7 +76,26 @@ namespace Lottery
 
         private bool IsValidActivity(Activity activity)
         {
-            return Query(activity.KeyWord, activity.BeginTime, activity.EndTime) == null;
+            // 从已有活动里筛选出 keyword 与该 activity 相同的所有活动
+            var activitiesWithSameKeyword = from a in activities where a.KeyWord == activity.KeyWord select a;
+            // 如果该活动的关键词从未出现过
+            if (activitiesWithSameKeyword.Count() == 0)
+                return true;
+            // 否则，检测该活动的日期是否与其它活动的日期有交集
+            foreach (Activity a in activitiesWithSameKeyword)
+            {
+                if (IsTwoTimePeriodIntersect(a.BeginTime, a.EndTime, activity.BeginTime, activity.EndTime))
+                    return false;
+            }
+            return true;
+        }
+
+        private bool IsTwoTimePeriodIntersect(DateTime beginTimeA, DateTime endTimeA, DateTime beginTimeB, DateTime endTimeB)
+        {
+            if (beginTimeA < beginTimeB)
+                return beginTimeB < endTimeA;
+            else
+                return beginTimeA < endTimeB;
         }
 
         private List<Activity> activities;

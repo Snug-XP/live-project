@@ -33,6 +33,8 @@ namespace Lottery
             c = totalnum / 2;
             this.userList = userList.userList;
             this.activity = activity;
+            
+            GetpList();
         }
 
         public void Settotalnum(int num)
@@ -55,7 +57,7 @@ namespace Lottery
             }
         }
        
-        public List<Lottery.User> DeepFilterList<User>(int n) //n为所需中奖人数
+        public List<Lottery.User> DeepFilterList(int n) //n为所需中奖人数
         {
 
             Random ro = new Random(10);
@@ -83,7 +85,7 @@ namespace Lottery
                                 if (userId.CompareTo(goodID) == 0) //这个人在黑名单
                                 {
                                     flag = 0;
-                                    n++;//中奖人员数返回
+                                   
                                     break;
                                 }
                             }
@@ -119,7 +121,6 @@ namespace Lottery
                                 if (userId.CompareTo(goodID) == 0) //这个人在黑名单
                                 {
                                     flag = 0;
-                                    n++;//中奖人员数返回
                                     break;
                                 }
                             }
@@ -154,7 +155,6 @@ namespace Lottery
                                 if (userId.CompareTo(goodID) == 0) //这个人在黑名单
                                 {
                                     flag = 0;
-                                    n++;//中奖人员数返回
                                     break;
                                 }
                             }
@@ -177,8 +177,9 @@ namespace Lottery
          
         }
 
-        public List<Lottery.User> CommonFilterList<User>(int n) //n为所需中将人数
+        public List<Lottery.User> CommonFilterList(int n) //n为所需中将人数
         {
+            ///if(activity.Participants.ToArray().Length<0)
 
             Random ro = new Random(10);
             long tick = DateTime.Now.Ticks;
@@ -212,7 +213,7 @@ namespace Lottery
                     int iResult;
                     iResult = ro.Next();
                     int goodnum = iResult % (c - a); //获取中奖号码
-                    string goodID = h_act_List[goodnum].ID;
+                    string goodID = m_act_List[goodnum].ID;
                     foreach (string userID in activity.GetParticipantIds())
                     {
                         if (goodID.CompareTo(userID) == 0)  //该User在当前活动的参与者中
@@ -230,8 +231,8 @@ namespace Lottery
                     //int flag = 1;//判断这个人是否可以中奖,1为可中将，0不行
                     int iResult;
                     iResult = ro.Next();
-                    int goodnum = iResult % (totalnum - c); //获取中奖号码
-                    string goodID = h_act_List[goodnum].ID;
+                    int goodnum = iResult % (totalnum - c-1); //获取中奖号码
+                    string goodID = l_act_List[goodnum].ID;
                     foreach (string userID in activity.GetParticipantIds())
                     {
                         if (goodID.CompareTo(userID) == 0)  //该User在当前活动的参与者中

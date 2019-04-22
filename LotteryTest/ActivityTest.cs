@@ -59,5 +59,21 @@ namespace LotteryTest
             info.KeySet = new HashSet<string>() { "foobar" };
             Assert.IsFalse(activity.IsValidMessage(info));
         }
+
+        [TestMethod]
+        public void TestValidMessageByKeywordAndSentTime()
+        {
+            Assert.IsTrue(activity.IsValidMessage("Keyword", Util.GetDateTime("2019-04-03 00:00:00")));
+            Assert.IsTrue(activity.IsValidMessage("Keyword", Util.GetDateTime("2019-04-02 08:00:00")));
+            Assert.IsTrue(activity.IsValidMessage("Keyword", Util.GetDateTime("2019-04-04 08:00:00")));
+        }
+
+        [TestMethod]
+        public void TestInvalidMessageByKeywordAndSentTime()
+        {
+            Assert.IsFalse(activity.IsValidMessage("Foo", Util.GetDateTime("2019-04-03 08:00:00")));
+            Assert.IsFalse(activity.IsValidMessage("Keyword", Util.GetDateTime("2019-01-01 00:00:00")));
+            Assert.IsFalse(activity.IsValidMessage("Keyword", Util.GetDateTime("2020-01-01 00:00:00")));
+        }
     }
 }
