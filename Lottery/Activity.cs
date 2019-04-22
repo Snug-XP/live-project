@@ -58,12 +58,28 @@ namespace Lottery
             {
                 return participantIds;
             }
+            set
+            {
+                participantIds = value;
+            }
         }
 
+        public List<string> BackIds
+        {
+            get
+            {
+                return backIds;
+            }
+            set
+            {
+                backIds = value;
+            }
+        }
 
         private List<Award> awardList = new List<Award>();
 
         private List<string> participantIds = new List<string>();
+        private List<string> backIds = new List<string>();
 
     }
 }
