@@ -8,7 +8,7 @@ namespace Lottery
 {
     class UserList
     {
-        private List<User> userList = new List<User>();
+        public List<User> userList = new List<User>();
 
 
 
@@ -27,6 +27,11 @@ namespace Lottery
             return null;
         }
 
+        public int GetTotal()
+        {
+            return userList.ToArray().Length;
+        }
+
         public bool IsExist(string userID)
         {
             foreach(User p in userList)
@@ -40,9 +45,9 @@ namespace Lottery
         /// <summary>
         /// 按活跃度降序排序
         /// </summary>
-        public void sort()
+        public void Sort()
         {
-            userList.Sort(delegate (User x, User y) { return y.Activity.CompareTo(x.Activity); });
+            userList.Sort(delegate (User x, User y) { return y.GetActivity().CompareTo(x.GetActivity()); });
         }
 
 
