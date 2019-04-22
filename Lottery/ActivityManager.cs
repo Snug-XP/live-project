@@ -40,13 +40,13 @@ namespace Lottery
         /// <param name="beginTime">活动的开始时间</param>
         /// <param name="endTime">活动的结束时间</param>
         /// <returns>
-        /// 如果用户给定的关键字在活动列表里存在，且活动的开始时间与结束时间落在给定范围内（包含两个边界）
+        /// 如果用户给定的关键字在活动列表里存在，且给定范围的时间落在活动的开始时间与结束时间内（包含两个边界）
         /// 则返回该活动，否则返回 null
         /// </returns>
         public Activity Query(string keyWord, DateTime beginTime, DateTime endTime)
         {
             var result = from activity in activities
-                         where activity.KeyWord == keyWord && beginTime <= activity.BeginTime && activity.EndTime <= endTime
+                         where activity.KeyWord == keyWord && beginTime >= activity.BeginTime && activity.EndTime >= endTime
                          select activity;
             return result.FirstOrDefault();
         }

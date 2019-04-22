@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+/*
 namespace Lottery
 {
     class Draw
@@ -148,7 +148,7 @@ namespace Lottery
                             break;
                         }
                     }
-                    if (flag == 1)*/
+                    if (flag == 1)
                         good_List.Add(h_act_List[goodnum]); //加入中奖队列
                 }
                 else if (i > 5 && i < 8)
@@ -167,7 +167,7 @@ namespace Lottery
                             break;
                         }
                     }
-                    if (flag == 1)*/
+                    if (flag == 1)
                         good_List.Add(m_act_List[goodnum]); //加入中奖队列
                 }
                 if (i > 7)
@@ -187,7 +187,7 @@ namespace Lottery
                             break;
                         }
                     }
-                    if (flag == 1)*/
+                    if (flag == 1)
                         good_List.Add(l_act_List[goodnum]); //加入中奖队列
                 }
             }
@@ -196,4 +196,4 @@ namespace Lottery
 
         }
     }
-}
+}*/
