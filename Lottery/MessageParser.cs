@@ -113,5 +113,10 @@ namespace Lottery
             secondLine = reader.ReadLine();
         }
 
+        public void CloseParser()
+        {
+            reader.Close();
+        }
+
     }
 }

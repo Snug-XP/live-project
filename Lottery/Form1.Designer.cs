@@ -48,6 +48,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label11 = new System.Windows.Forms.Label();
             this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
             this.label9 = new System.Windows.Forms.Label();
@@ -65,7 +66,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.label11 = new System.Windows.Forms.Label();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.tabPage1.SuspendLayout();
@@ -286,6 +286,15 @@
             this.tabPage2.Text = "活动管理";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(334, 57);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(15, 15);
+            this.label11.TabIndex = 17;
+            this.label11.Text = " ";
+            // 
             // dateTimePicker4
             // 
             this.dateTimePicker4.CustomFormat = "yyyy-MM-dd HH:mm";
@@ -335,6 +344,7 @@
             this.dataGridView1.RowTemplate.Height = 27;
             this.dataGridView1.Size = new System.Drawing.Size(177, 150);
             this.dataGridView1.TabIndex = 9;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.DataGridView_RowStateChanged);
             // 
             // 黑名单人员
@@ -437,15 +447,6 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(802, 443);
             this.tabControl1.TabIndex = 0;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(334, 57);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(15, 15);
-            this.label11.TabIndex = 17;
-            this.label11.Text = " ";
             // 
             // Form1
             // 
