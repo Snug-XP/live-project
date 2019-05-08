@@ -56,8 +56,10 @@ namespace Lottery
                     }
                 }
             }
+            p.CloseParser();
             MessageBox.Show("导入完成");
         }
+        
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -153,14 +155,14 @@ namespace Lottery
             //写文件
             FileStream fs = new FileStream("reward.txt", FileMode.Create);
             StreamWriter sw = new StreamWriter(fs);
-            
+
             if (keyword.Equals(""))
             {
                 MessageBox.Show("错误：关键字不得为空");
                 return;
             }
             Activity activity = activityManager.Query(keyword, sentTime);
-            if(activity == null)
+            if (activity == null)
             {
                 MessageBox.Show("错误：未匹配到活动");
             }
@@ -180,6 +182,7 @@ namespace Lottery
                 else
                     listUser = draw.DeepFilterList(sum);
 
+                if(listUser.Count>0)
                 foreach (Award award in activity.Awards)
                 {
                     for (int j = 0; j < award.Count; j++)
@@ -196,12 +199,12 @@ namespace Lottery
                 }
 
                 MessageBox.Show("生成结束");
-                //清空缓冲区
-                sw.Flush();
-                //关闭流
-                sw.Close();
-                fs.Close();
             }
+            //清空缓冲区
+            sw.Flush();
+            //关闭流
+            sw.Close();
+            fs.Close();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -215,6 +218,9 @@ namespace Lottery
             }
         }
 
-        
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
